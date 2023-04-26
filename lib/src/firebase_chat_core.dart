@@ -223,6 +223,16 @@ class FirebaseChatCore {
         .delete();
   }
 
+    /// Add [user] to [room] with [role].
+  Future<void> addUserToRoom(String userId, String roomId) async {
+    await getFirebaseFirestore()
+        .collection(config.roomsCollectionName)
+        .doc(roomId)
+        .update({
+      'userIds': FieldValue.arrayUnion([userId]),
+    });
+  }
+
   /// Returns a stream of messages from Firebase for a given room.
   Stream<List<types.Message>> messages(
     types.Room room, {
