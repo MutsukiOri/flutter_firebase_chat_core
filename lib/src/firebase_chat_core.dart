@@ -223,7 +223,7 @@ class FirebaseChatCore {
         .delete();
   }
 
-    /// Add [user] to [room] with [role].
+    /// Add [userId] to [room.userIds].
   Future<void> addUserToRoom(String userId, String roomId) async {
     await getFirebaseFirestore()
         .collection(config.roomsCollectionName)
