@@ -235,12 +235,12 @@ class FirebaseChatCore {
   }
 
   /// Add [userId] to [room.userIds].
-  Future<void> addUserToRoom(String userId, String roomId) async {
+  Future<void> addUserToRoom(types.User user, String roomId) async {
     await getFirebaseFirestore()
         .collection(config.roomsCollectionName)
         .doc(roomId)
         .update({
-      'userIds': FieldValue.arrayUnion([userId]),
+      'userIds': FieldValue.arrayUnion([user.id]),
     });
   }
 
