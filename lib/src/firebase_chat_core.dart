@@ -215,6 +215,17 @@ class FirebaseChatCore {
         .delete();
   }
 
+  /// Fetch [types.User] from Firebase.
+  Future<types.User> fetchUserFromFirestore(String userId) async {
+    final user = await fetchUser(
+      getFirebaseFirestore(),
+      userId,
+      config.usersCollectionName,
+    );
+
+    return types.User.fromJson(user);
+  }
+
   /// Removes [types.User] from `users` collection in Firebase.
   Future<void> deleteUserFromFirestore(String userId) async {
     await getFirebaseFirestore()
@@ -223,7 +234,7 @@ class FirebaseChatCore {
         .delete();
   }
 
-    /// Add [userId] to [room.userIds].
+  /// Add [userId] to [room.userIds].
   Future<void> addUserToRoom(String userId, String roomId) async {
     await getFirebaseFirestore()
         .collection(config.roomsCollectionName)
